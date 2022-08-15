@@ -48,7 +48,7 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
 
     Although Sheet API supports both 2-legged and 3-legged token, we suggest your application adopts 3-legged token because it will follow the user permission setting of the logged user. If you need to test with 2-legged token in Postman collection, call this endpoint __Authentication-2legged-backup__ to get access_token. From the response, copy this token to the panel of **Edit** 
 
-       <p align="center"><img src="./help/input-token.png" width="600" ></p> 
+<p align="center"><img src="./help/input-token.png" width="600" ></p> 
 
 9. To work with 3-legged token, ensure the logged user has enough permission in UI setting. 
 
@@ -66,7 +66,7 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
    - Scope ``data:read data:write``
    - Client Authentication ``Send Client credentials body``
 
-   <p align="center"><img src="./help/apiref-oauth2.png" width="800" ></p> 
+   <p align="center"><img src="./help/apiref-oauth2.png" width="600" ></p> 
  
     Click **Get New Access Token**, it will direct to login Autodesk account, after it succeeds, the token will be generated. Click **Use Token**. Then, click **Update** to close the window of **Edit**. 
    
@@ -76,7 +76,7 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
 1. Assume the steps of **Setup** have been performed. The access token is ready.
 
 2. Play the scripts. Try to change some parameters or body with more scenarios. Please check [Sheet API Reference](https://forge.autodesk.com/en/docs/bim360/v1/reference/http/data-connector-requests-POST/) for more details
-   <p align="center"><img src="./help/collection.png" width="600" ></p>  
+   <p align="center"><img src="./help/collection.png" width="400" ></p>  
 
 ## Tutorial Test
 
