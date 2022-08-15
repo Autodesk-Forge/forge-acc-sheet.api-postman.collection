@@ -1,0 +1,2073 @@
+{
+	"info": {
+		"_postman_id": "36c192f2-d61d-4535-b6f3-250b9501c5ac",
+		"name": "ACC Sheet API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API References",
+			"item": [
+				{
+					"name": "Sheets",
+					"item": [
+						{
+							"name": "GET Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get sheets collection, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get two sheets id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    if(body.results && body.results.length>1){",
+											"        pm.environment.set(\"first_sheet_id\", body.results[0].id); ",
+											"        pm.environment.set(\"second_sheet_id\", body.results[1].id); ",
+											"    }",
+											"",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/sheets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"sheets"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										},
+										{
+											"key": "filter[versionSetId]",
+											"value": "4e6a5a33-ae0b-4043-8fc6-0ae38812db61",
+											"description": "user Id",
+											"disabled": true
+										},
+										{
+											"key": "currentOnly",
+											"value": "false",
+											"description": "ISO8601. Three dots with date range",
+											"disabled": true
+										},
+										{
+											"key": "filter[tags]",
+											"value": "floor1,floor2",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "title",
+											"description": "ISO8601",
+											"disabled": true
+										},
+										{
+											"key": "searchText",
+											"value": "0333,niko",
+											"disabled": true
+										},
+										{
+											"key": "isDeleted",
+											"value": "true",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST sheets:batch-get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"batch get sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-user-id",
+										"value": "",
+										"description": "In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"ids\": [\n          \"{{first_sheet_id}}\",  \n          \"{{second_sheet_id}}\"  \n        ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/sheets:batch-get",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"sheets:batch-get"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST sheets:batch-update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"batch update sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-user-id",
+										"value": "",
+										"description": "In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n         \"ids\": [\n          \"{{first_sheet_id}}\"   \n        ],\n        \"updates\": {\n          \"number\": \"A-Number-New\",\n          \"title\": \"Floor New\",\n          \"addTags\": [\n            \"Floor New\"\n          ],\n          \"removeTags\": [\n            \"Floor\"\n          ]\n        }\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/sheets:batch-update",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"sheets:batch-update"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST sheets:batch-delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"batch delete sheets, Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-user-id",
+										"value": "",
+										"description": "In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"ids\": [\n           \"{{first_sheet_id}}\",  \n          \"{{second_sheet_id}}\"  \n        ] \n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/sheets:batch-delete",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"sheets:batch-delete"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST sheets:batch-restore",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.test(\"batch restore sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-user-id",
+										"value": "",
+										"description": "In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"ids\": [\n          \"{{first_sheet_id}}\",  \n          \"{{second_sheet_id}}\"  \n        ]  \n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/sheets:batch-restore",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"sheets:batch-restore"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Version Sets",
+					"item": [
+						{
+							"name": "GET Version-Sets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get version sets collection, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get version set id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    if(body.results && body.results.length>0)",
+											"    pm.environment.set(\"one_versionset_id\", body.results[0].id); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/version-sets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"version-sets"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Version-Sets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"create new version sets collection, Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"name\": \"version set by API\",\n        \"issuanceDate\": \"2022-09-01\"\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/version-sets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"version-sets"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST version-sets:batch-get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"batch get version sets collection, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"ids\": [\n          \"{{one_versionset_id}}\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/version-sets:batch-get",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"version-sets:batch-get"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST version-sets:batch-delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"batch delete version set, Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"ids\": [\n          \"{{one_versionset_id}}\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/version-sets:batch-delete",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"version-sets:batch-delete"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										},
+										{
+											"key": "filter[createdBy]",
+											"value": "H525MUVW4AAB",
+											"description": "user Id",
+											"disabled": true
+										},
+										{
+											"key": "filter[dueDate]",
+											"value": "2022-01-14...",
+											"description": "ISO8601. Three dots with date range",
+											"disabled": true
+										},
+										{
+											"key": "filter[deleted]",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "filter[createdAt]",
+											"value": "2022-01-14...",
+											"description": "ISO8601",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "9563e750-18ed-43f7-a415-bf17d5d0051d"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH version-sets/{versionSetId}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"batch patch version sets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"name\": \"new name\",\n        \"issuanceDate\": \"2022-10-01\"\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/version-sets/:versionSetId",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"version-sets",
+										":versionSetId"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "versionSetId",
+											"value": "{{one_versionset_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Uploads",
+					"item": [
+						{
+							"name": "POST storage in sheet space",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"create storage of sheet, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get storage urn of one pdf: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    pm.environment.set(\"one_pdf_storage_urn\", body.urn); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"fileName\": \"one.pdf\"\n }"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/storage",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"storage"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET uploads",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get uploads collection, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get one issue id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    if(body.results && body.results.length>0)",
+											"    pm.environment.set(\"one_upload_id\", body.results[0].id); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /uploads/:uploadId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get one upload, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST uploads",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get issues collection, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get one issue id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    if(body.results && body.results.length>0)",
+											"    pm.environment.set(\"one_upload_id\", body.results[0].id); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"versionSetId\": \"{{one_versionset_id}}\",\n        \"files\": [{\n          \"storageType\": \"OSS\",\n          \"storageUrn\": \"{{first_upload_pdf_urn}}\",\n          \"name\": \"first.pdf\"\n        },{\n          \"storageType\": \"OSS\",\n          \"storageUrn\": \"{{second_upload_pdf_urn}}\",\n          \"name\": \"second.pdf\"\n        }]\n      }"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Review Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Review Sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get one issue id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    if(body.results && body.results.length>0)",
+											"    pm.environment.set(\"one_issue_id\", body.results[0].id); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"versionSetId\": \"4e6a5a33-ae0b-4043-8fc6-0ae38812db61\",\n        \"files\": [{\n          \"storageType\": \"OSS\",\n          \"storageUrn\": \"urn:adsk.objects:os.object:bimdocs.9563e750-18ed-43f7-a415-bf17d5d0051d/4d5a0c54-405c-4222-ae73-a52cdc6e2d29.pdf\",\n          \"name\": \"example-1.pdf\"\n        }]\n      }"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/review-sheets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"review-sheets"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST thumbnails:batch-get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Get issues collection, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get one issue id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    if(body.results && body.results.length>0)",
+											"    pm.environment.set(\"one_issue_id\", body.results[0].id); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"reviewSheetIds\": [\n          \"1d09569b-8bde-356a-8754-5d11ace5ee80\"\n        ],\n        \"type\": \"big\"\n      }"
+								},
+								"url": {
+									"raw": "{{base_domain}}construction/sheets/v1/projects/:projectId/uploads/:uploadId/thumbnails:batch-get",
+									"host": [
+										"{{base_domain}}construction"
+									],
+									"path": [
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"thumbnails:batch-get"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH review-sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"PATCH review-sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n        {\n          \"id\": \"bb9c1708-5646-33a4-bd8d-d779d4fe719a\",\n          \"number\": \"A-01\",\n          \"title\": \"Floor One\",\n          \"deleted\": false,\n          \"tags\": [\n            \"April\",\n            \"Floor\"\n          ]\n        },\n        {\n          \"id\": \"74c548d7-901c-307a-a653-4197d2a8b1a2\",\n          \"number\": \"A-01\",\n          \"title\": \"Floor One\",\n          \"deleted\": false,\n          \"tags\": [\n            \"April\",\n            \"Floor\"\n          ]\n        }  \n      ]"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/review-sheets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"review-sheets"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST review-sheets:publish",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"POST review-sheets:publish, Status code is 202\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"  ",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/review-sheets:publish",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"review-sheets:publish"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tutorials",
+			"item": [
+				{
+					"name": "Upload Files to ACC Sheets",
+					"item": [
+						{
+							"name": "Step 1: Create a Version Set",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 1: Create a Version Set, Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"  ",
+											"pm.test(\"get version set id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    pm.environment.set(\"versionSetId\", body.id);  ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var d = new Date()",
+											"var current_date_time = d.getFullYear() ",
+											"                +\"-\" + ((\"0\" + (d.getUTCMonth()+1)).slice(-2) )",
+											"                + \"-\" +  (\"0\" + d.getUTCDate()).slice(-2)",
+											"                + \"-\" +  (\"0\" + d.getHours()).slice(-2) ",
+											"                + \"-\" +  (\"0\" + d.getMinutes()).slice(-2)",
+											"",
+											"pm.environment.set(\"current_date_time\", current_date_time);",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"name\": \"version set by API -  {{current_date_time}}\" ,\n        \"issuanceDate\": \"2022-09-01\"\n}"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/version-sets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"version-sets"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 2: Create a Storage Object",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 2: Create a Storage Object, Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											" ",
+											"pm.test(\"get bucket key and object key: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    var one_pdf_storage_urn = body.urn",
+											"    pm.environment.set(\"one_pdf_storage_urn\", one_pdf_storage_urn); ",
+											"    //get bucket key and pbject key",
+											"",
+											"    var ret = one_pdf_storage_urn.replace('urn:adsk.objects:os.object:','');",
+											"    var splitBySlash = ret.split(\"/\")",
+											"",
+											"    var bucketKey = splitBySlash[0]",
+											"    var objectKey = splitBySlash[1]",
+											"    pm.environment.set(\"bucketKey\", bucketKey); ",
+											"    pm.environment.set(\"objectKey\", objectKey); ",
+											"",
+											"",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"fileName\": \"example-6.pdf\"\n }"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/storage",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"storage"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 3: Generate a Signed S3 URL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 3: Generate a Signed S3 URL, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											" pm.test(\"get S3 signed url: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"        pm.environment.set(\"uploadKey\", body.uploadKey); ",
+											"                pm.environment.set(\"s3_url\", body.urls[0]); ",
+											"",
+											"",
+											" })"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/oss/v2/buckets/:bucketKey/objects/:objectKey/signeds3upload",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"oss",
+										"v2",
+										"buckets",
+										":bucketKey",
+										"objects",
+										":objectKey",
+										"signeds3upload"
+									],
+									"variable": [
+										{
+											"key": "bucketKey",
+											"value": "{{bucketKey}}"
+										},
+										{
+											"key": "objectKey",
+											"value": "{{objectKey}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 4: Upload a File to the Signed URL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/octet-stream",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": ""
+									}
+								},
+								"url": {
+									"raw": "{{s3_url}}",
+									"host": [
+										"{{s3_url}}"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										},
+										{
+											"key": "filter[createdBy]",
+											"value": "H525MUVW4AAB",
+											"description": "user Id",
+											"disabled": true
+										},
+										{
+											"key": "filter[dueDate]",
+											"value": "2022-01-14...",
+											"description": "ISO8601. Three dots with date range",
+											"disabled": true
+										},
+										{
+											"key": "filter[deleted]",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "filter[createdAt]",
+											"value": "2022-01-14...",
+											"description": "ISO8601",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Complete Binary Upload",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "     {\n        \n        \"uploadKey\":\"{{uploadKey}}\"\n    } "
+								},
+								"url": {
+									"raw": "{{base_domain}}/oss/v2/buckets/{{bucketKey}}/objects/{{objectKey}}/signeds3upload",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"oss",
+										"v2",
+										"buckets",
+										"{{bucketKey}}",
+										"objects",
+										"{{objectKey}}",
+										"signeds3upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 5: Extract and Split the File into Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 5: Extract and Split the File into Sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											"pm.test(\"get one upload id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    pm.environment.set(\"one_upload_id\", body.id); ",
+											"    ",
+											"});",
+											"",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"versionSetId\": \"{{versionSetId}}\",\n        \"files\": [{\n          \"storageType\": \"OSS\",\n          \"storageUrn\": \"{{one_pdf_storage_urn}}\",\n          \"name\": \"test.pdf\"\n        } ]\n      }"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 6: Check the Upload Status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 6: Check the Upload Status, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 7: Review the Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 7: Review the Sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											" ",
+											" pm.test(\"get two review sheets id: \", function () {",
+											"    var body = JSON.parse(responseBody);",
+											"    //if(body.results && body.results.length>1)",
+											"    {",
+											"         //assume sheet processingState = READY ",
+											"         pm.environment.set(\"first_sheet_id\", body.results[0].id); ",
+											"         pm.environment.set(\"second_sheet_id\", body.results[1].id); ",
+											"    }",
+											"",
+											"    ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/review-sheets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"review-sheets"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 8: Get the Thumbnails of the Review Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"reviewSheetIds\": [\n          \"{{first_sheet_id}}\",\n          \"{{second_sheet_id}}\"\n        ],\n        \"type\": \"big\"\n      }"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/thumbnails:batch-get",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"thumbnails:batch-get"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 9: Update the Review Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 9: Update the Review Sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n        {\n          \"id\": \"{{first_sheet_id}}\",\n          \"number\": \"A-01\",\n          \"title\": \"Floor A\",\n          \"deleted\": false,\n          \"tags\": [\n            \"April\",\n            \"Floor A\"\n          ]\n        },\n        {\n          \"id\": \"{{second_sheet_id}}\",\n          \"number\": \"A-02\",\n          \"title\": \"Floor B\",\n          \"deleted\": false,\n          \"tags\": [\n            \"May\",\n            \"Floor B\"\n          ]\n        }  \n      ]"
+								},
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/review-sheets",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"review-sheets"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 10: Publish the Review Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 10: Publish the Review Sheets, Status code is 202\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"  ",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/uploads/:uploadId/review-sheets:publish",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"uploads",
+										":uploadId",
+										"review-sheets:publish"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										},
+										{
+											"key": "uploadId",
+											"value": "{{one_upload_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Step 11: Retrieve the Published Sheets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Step 11: Retrieve the Published Sheets, Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"  ",
+											"     "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain}}/construction/sheets/v1/projects/:projectId/sheets?filter[versionSetId]={{versionSetId}}",
+									"host": [
+										"{{base_domain}}"
+									],
+									"path": [
+										"construction",
+										"sheets",
+										"v1",
+										"projects",
+										":projectId",
+										"sheets"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2",
+											"description": "input a limit in 2-200",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "5",
+											"description": "<input a offset in 2-200>",
+											"disabled": true
+										},
+										{
+											"key": "filter[versionSetId]",
+											"value": "4e6a5a33-ae0b-4043-8fc6-0ae38812db61",
+											"description": "user Id",
+											"disabled": true
+										},
+										{
+											"key": "currentOnly",
+											"value": "false",
+											"description": "ISO8601. Three dots with date range",
+											"disabled": true
+										},
+										{
+											"key": "filter[tags]",
+											"value": "floor1,floor2",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "title",
+											"description": "ISO8601",
+											"disabled": true
+										},
+										{
+											"key": "searchText",
+											"value": "0333,niko",
+											"disabled": true
+										},
+										{
+											"key": "isDeleted",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "filter[versionSetId]",
+											"value": "{{versionSetId}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id_without_b}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Authentication-2legged-backup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", data.access_token);",
+							"postman.setEnvironmentVariable(\"expires_in\", data.expires_in);",
+							"postman.setEnvironmentVariable(\"token_type\", data.token_type);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "data:read",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_domain}}/authentication/v1/authenticate",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"authentication",
+						"v1",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "data:read data:write",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{client_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client_id}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://developer.api.autodesk.com/authentication/v1/gettoken",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://developer.api.autodesk.com/authentication/v1/authorize",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://www.getpostman.com/oauth2/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "access_token",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
