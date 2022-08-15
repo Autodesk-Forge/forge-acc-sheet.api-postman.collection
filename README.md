@@ -48,11 +48,11 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
 
     Although Sheet API supports both 2-legged and 3-legged token, we suggest your application adopts 3-legged token because it will follow the user permission setting of the logged user. If you need to test with 2-legged token in Postman collection, call this endpoint __Authentication-2legged-backup__ to get access_token. From the response, copy this token to the panel of **Edit** 
 
-<p align="center"><img src="./help/input-token.png" width="600" ></p> 
+<p align="center"><img src="./help/input-token.png" width="400" ></p> 
 
 9. To work with 3-legged token, ensure the logged user has enough permission in UI setting. 
 
-   <p align="center"><img src="./help/permission.png" width="800" ></p> 
+   <p align="center"><img src="./help/permission.png" width="400" ></p> 
 
     Next, in context menu of collection >> **Edit**, switch to the tab **Authorization**. Click **Get New Access Token**, input the variables as below:
 
