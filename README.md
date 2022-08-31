@@ -1,4 +1,4 @@
-# Postman Collection for Sheet API of Autodesk Construction Cloud(ACC) 
+# Postman Collection for Sheets API of Autodesk Construction Cloud(ACC) 
 
 [![Postman](https://img.shields.io/badge/Postman-v7-orange.svg)](https://www.getpostman.com/)
 [![Sheet API](https://img.shields.io/badge/ACC%20Sheet%20API-v1-yellowgreen)](https://forge.autodesk.com/en/docs/acc/v1/reference/http/sheets-sheets-GET/)
@@ -6,12 +6,9 @@
 ![Beginner](https://img.shields.io/badge/Level-Beginner-green.svg)
 [![License](https://img.shields.io/:license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
-## Description
+## Description 
 
-Change Log:
-  - 10/08/2022: first release
-
-This repository provides demos for the category of **Sheet API**. Please check [Field Guide](https://forge.autodesk.com/en/docs/acc/v1/overview/field-guide/sheets/) for more details. The API supports both 2-legged and 3-legged token .
+This repository provides a postman collection for **Sheets API**. Sheets is a feature under Autodesk Build. Please check [Field Guide](https://forge.autodesk.com/en/docs/acc/v1/overview/field-guide/sheets/) for more details. The API supports both 2-legged and 3-legged token .
 
 ## What's Postman?
 
@@ -30,7 +27,7 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
 
 2. **ACC Account and project**: must be Account Admin to add the app integration. [Learn about provisioning](https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps). 
 
-3. Follow [product help]() to create one version set and upload some PDFs to Sheets.
+3. Follow [product help](https://learnacc.autodesk.com/page/autodesk-docs) to create one version set and upload some PDFs to Sheets.
 
 4. Get ACC project id (hub id without b.) by API , or copy from browser address of ACC UI. 
 
@@ -46,7 +43,7 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
 
 8. This collection takes **[Inheriting auth](https://learning.getpostman.com/docs/postman/sending-api-requests/authorization/#inheriting-auth)** to apply access token to every endpoint in the collection automatically, which means it does not need to input the token in the header explicitly.
 
-    Although Sheet API supports both 2-legged and 3-legged token, we suggest your application adopts 3-legged token because it will follow the user permission setting of the logged user. If you need to test with 2-legged token in Postman collection, call this endpoint __Authentication-2legged-backup__ to get access_token. From the response, copy this token to the panel of **Edit** 
+    Although Sheets API supports both 2-legged and 3-legged token, we suggest your application adopts 3-legged token because it will follow the user permission setting of the logged user. If you need to test with 2-legged token in Postman collection, call this endpoint __Authentication-2legged-backup__ to get access_token. From the response, copy this token to the panel of **Edit** 
 
 <p align="center"><img src="./help/input-token.png" width="400" ></p> 
 
@@ -75,7 +72,7 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
 
 1. Assume the steps of **Setup** have been performed. The access token is ready.
 
-2. Play the scripts. Try to change some parameters or body with more scenarios. Please check [Sheet API Reference](https://forge.autodesk.com/en/docs/bim360/v1/reference/http/data-connector-requests-POST/) for more details
+2. Play the scripts. Try to change some parameters or body with more scenarios. Please check [Sheets API Reference](https://forge.autodesk.com/en/docs/bim360/v1/reference/http/data-connector-requests-POST/) for more details
    <p align="center"><img src="./help/collection.png" width="400" ></p>  
 
 ## Tutorial Test
@@ -88,31 +85,31 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
    - Step 2: create storage object in the bucket of Sheet of this project. The  The post-test script will extract _bucket key_ and _object key_ from the storage urn. 
    - Step 3: this is to call [Data Management API]() to generate Signed S3 URL of this storage above. The The post-test script will make a note with signed url
    - Step 4: use the signed url in Step 3 to upload the binary file (PDF)
-   - Step X: call [Data Management API]() to complete the upload.
+   - Step 5: call [Data Management API]() to complete the upload.
    If you want to upload more PDFs, repeate Step 2 and Step 4
-   - Step X: create a new upload of Sheet with all the storage urns of the PDF. At backend of Forge, it will extract each pdf, split them to pages. Each page will be created as one Sheet.  
-   - Step X: check status of the upload. If it shows IN_REVIEW, it means the sheets are extracted succefully, and ready for review.
-   - Step X: get ids of the review sheets.
-   - Step X: get thumnails of the review sheets as a reference when the user reviews the sheet
-   - Step X: update the sheets if needed. Basically, ensure their number and title are not conflict. Otherwise, the publishing will throw exception.
-   - Step X: publish the upload. It will turn the review sheets to the formal one in Sheet collection
-   - Step X: you can double check by calling GET:Sheets endpoint, with the filtering of the specific version set. 
+   - Step 6: create a new upload of Sheet with all the storage urns of the PDF. At backend of Forge, it will extract each pdf, split them to pages. Each page will be created as one Sheet.  
+   - Step 7: check status of the upload. If it shows IN_REVIEW, it means the sheets are extracted succefully, and ready for review.
+   - Step 8: get ids of the review sheets.
+   - Step 9: get thumnails of the review sheets as a reference when the user reviews the sheet
+   - Step 10: update the sheets if needed. Basically, ensure their number and title are not conflict. Otherwise, the publishing will throw exception.
+   - Step 11: publish the upload. It will turn the review sheets to the formal one in Sheet collection
+   - Step 12: you can double check by calling GET:Sheets endpoint, with the filtering of the specific version set. 
 
-## Notes
+## Known Issues and Limitations
 1. currently, API does not support extract and split Revit model
 2. currently, API does not support to import PDFs from Files module of ACC project. you must upload PDFs from your local (server/other cloud storage).
  
  
 ## Further Reading
 **Document**
-- [Sheet API Field Guid](https://forge.autodesk.com/en/docs/bim360/v1/overview/field-guide/data-connector/)
-- [Sheet API Reference](https://forge.autodesk.com/en/docs/bim360/v1/reference/http/data-connector-requests-POST/)
+- [Sheets API Field Guid](https://forge.autodesk.com/en/docs/bim360/v1/overview/field-guide/data-connector/)
+- [Sheets API Reference](https://forge.autodesk.com/en/docs/bim360/v1/reference/http/data-connector-requests-POST/)
 
 **Tutorials**:
-- [Upload Files to ACC Sheets](https://forge.autodesk.com/en/docs/bim360/v1/tutorials/data-connector/)
+- [Upload Files to ACC Sheets](https://forge.autodesk.com/en/docs/acc/v1/tutorials/sheets/upload-sheets/)
 
 **Blogs**:
-- [Forge Blog](https://forge.autodesk.com/categories/bim-360-api)
+- [Forge Blog](https://forge.autodesk.com/en/docs/acc/v1/tutorials/sheets/upload-sheets/)
 - [Field of View](https://fieldofviewblog.wordpress.com/), a BIM focused blog
 
 ## License
@@ -122,3 +119,6 @@ This sample is licensed under the terms of the [MIT License](http://opensource.o
 ## Written by
 
 Xiaodong Liang [@coldwood](https://twitter.com/coldwood), [Forge Partner Development](http://forge.autodesk.com)
+
+## Change Log
+  - 10/08/2022: first release

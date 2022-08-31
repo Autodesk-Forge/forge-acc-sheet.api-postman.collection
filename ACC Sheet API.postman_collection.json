@@ -1455,7 +1455,7 @@
 							"response": []
 						},
 						{
-							"name": "POST Complete Binary Upload",
+							"name": "Step 5: POST Complete Binary Upload",
 							"event": [
 								{
 									"listen": "test",
@@ -1499,7 +1499,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 5: Extract and Split the File into Sheets",
+							"name": "Step 6: Extract and Split the File into Sheets",
 							"event": [
 								{
 									"listen": "test",
@@ -1558,7 +1558,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 6: Check the Upload Status",
+							"name": "Step 7: Check the Upload Status",
 							"event": [
 								{
 									"listen": "test",
@@ -1605,7 +1605,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 7: Review the Sheets",
+							"name": "Step 8: Review the Sheets",
 							"event": [
 								{
 									"listen": "test",
@@ -1664,7 +1664,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 8: Get the Thumbnails of the Review Sheets",
+							"name": "Step 9: Get the Thumbnails of the Review Sheets",
 							"event": [
 								{
 									"listen": "test",
@@ -1719,7 +1719,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 9: Update the Review Sheets",
+							"name": "Step 10: Update the Review Sheets",
 							"event": [
 								{
 									"listen": "test",
@@ -1777,7 +1777,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 10: Publish the Review Sheets",
+							"name": "Step 11: Publish the Review Sheets",
 							"event": [
 								{
 									"listen": "test",
@@ -1833,7 +1833,7 @@
 							"response": []
 						},
 						{
-							"name": "Step 11: Retrieve the Published Sheets",
+							"name": "Step 12: Retrieve the Published Sheets",
 							"event": [
 								{
 									"listen": "test",
