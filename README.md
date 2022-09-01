@@ -82,15 +82,15 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
    This tutorial demos the whole workflow that uploads sheets till publishing. Please prepare some PDF files (either single page or multiple pages)
 
    - Step 1: create a new version set with custom name and issue date. The post-test script will make a note with the id of version set (_versionSetId_)
-   - Step 2: create storage object in the bucket of Sheet of this project. The  The post-test script will extract _bucket key_ and _object key_ from the storage urn. 
-   - Step 3: this is to call [Data Management API]() to generate Signed S3 URL of this storage above. The The post-test script will make a note with signed url
+   - Step 2: create storage object in the bucket of Sheet of this project. The post-test script will extract _bucket key_ and _object key_ from the storage urn. 
+   - Step 3: this is to call [Data Management API]() to generate Signed S3 URL of this storage above. The post-test script will make a note with signed url
    - Step 4: use the signed url in Step 3 to upload the binary file (PDF)
    - Step 5: call [Data Management API]() to complete the upload.
-   If you want to upload more PDFs, repeate Step 2 and Step 4
+   If you want to upload more PDFs, repeat Step 2 and Step 4
    - Step 6: create a new upload of Sheet with all the storage urns of the PDF. At backend of Forge, it will extract each pdf, split them to pages. Each page will be created as one Sheet.  
-   - Step 7: check status of the upload. If it shows IN_REVIEW, it means the sheets are extracted succefully, and ready for review.
+   - Step 7: check status of the upload. If it shows IN_REVIEW, it means the sheets are extracted successfully, and ready for review.
    - Step 8: get ids of the review sheets.
-   - Step 9: get thumnails of the review sheets as a reference when the user reviews the sheet
+   - Step 9: get thumbnails of the review sheets as a reference when the user reviews the sheet
    - Step 10: update the sheets if needed. Basically, ensure their number and title are not conflict. Otherwise, the publishing will throw exception.
    - Step 11: publish the upload. It will turn the review sheets to the formal one in Sheet collection
    - Step 12: you can double check by calling GET:Sheets endpoint, with the filtering of the specific version set. 
@@ -102,8 +102,8 @@ Postman is a popular tool that provides an easy-to-use interface to send HTTP re
  
 ## Further Reading
 **Document**
-- [Sheets API Field Guid](https://forge.autodesk.com/en/docs/bim360/v1/overview/field-guide/data-connector/)
-- [Sheets API Reference](https://forge.autodesk.com/en/docs/bim360/v1/reference/http/data-connector-requests-POST/)
+- [Sheets API Field Guid](https://forge.autodesk.com/en/docs/acc/v1/overview/field-guide/sheets/)
+- [Sheets API Reference](https://forge.autodesk.com/en/docs/acc/v1/reference/http/sheets-sheets-GET/)
 
 **Tutorials**:
 - [Upload Files to ACC Sheets](https://forge.autodesk.com/en/docs/acc/v1/tutorials/sheets/upload-sheets/)
