@@ -1,3 +1,6 @@
+# DEPRECATED
+This repository has been deprecated and migrated to https://github.com/autodesk-platform-services/aps-acc-sheet.api-postman.collection
+
 # Postman Collection for Sheets API of Autodesk Construction Cloud(ACC) 
 
 [![Postman](https://img.shields.io/badge/Postman-v7-orange.svg)](https://www.getpostman.com/)
